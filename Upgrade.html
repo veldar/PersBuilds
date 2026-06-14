@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pers Builds - تطوير المواصفات</title>
+    <link rel="stylesheet" href="Design.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="png" href="icon.png">
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="container header-container">
+            <div class="logo">
+                <h1>Pers <span>Builds</span></h1>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="AboutUs.html">تواصل معنا</a></li>
+                    <li><a href="CompareAndBenchmark.html">مقارنة الأداء</a></li>
+                    <li><a href="Components.html">قطع الكمبيوتر</a></li>
+                    <li><a href="Upgrade.html" class="active">تطوير المواصفات</a></li>
+                    <li><a href="MyBuilds.html">تجميعاتي</a></li>
+                    <li><a href="CusBuilds.html">بناء خاص</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <section class="container upgrade-section">
+            <div class="upgrade-header" style="text-align: center;">
+                <h2>اداة ترقية وتطوير العتاد</h2>
+                <p>أدخل المواصفات المراد تطويرها والمبلغ المحدد للتطوير</p>
+            </div>
+
+            <form id="upgrade-form" class="builder-card">
+                <div class="form-group">
+                    <label for="currency-select">العملة المستخدمة:</label>
+                    <select id="currency-select" class="form-control">
+                        <option value="USD">دولار أمريكي ($)</option>
+                        <option value="LYD">دينار ليبي (د.ل)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="budget">ميزانية التطوير:</label>
+                    <input type="number" id="budget" class="form-control" placeholder="مثال: 300" required>
+                    
+                    <label class="checkbox-label" style="display: flex; align-items: center; gap: 10px; cursor: pointer; margin-top: 15px;">
+                        <input type="checkbox" id="sell-old-parts" checked style="width: 18px; height: 18px;">
+                        <span>إضافة قيمة بيع القطع المستبدلة</span>
+                    </label>
+                </div>
+
+                <hr style="margin: 20px 0;">
+                <h3>مواصفات جهازك الحالي:</h3>
+
+                <div class="form-group">
+                    <label for="current-cpu">المعالج الحالي (CPU):</label>
+                    <select id="current-cpu" class="form-control" required><option value="">-- اختر معالجك الحالي --</option></select>
+                </div>
+
+                <div class="form-group">
+                    <label for="current-gpu">كرت الشاشة الحالي (GPU):</label>
+                    <select id="current-gpu" class="form-control" required><option value="">-- اختر كرت الشاشة الحالي --</option></select>
+                </div>
+
+                <div class="form-group">
+                    <label for="current-ram">الذاكرة العشوائية الحالية (RAM):</label>
+                    <select id="current-ram" class="form-control" required><option value="">-- اختر حجم وسرعة الرام --</option></select>
+                </div>
+
+                <div class="form-group">
+                    <label for="current-storage">وحدة التخزين الحالية (Storage):</label>
+                    <select id="current-storage" class="form-control" required><option value="">-- اختر وحدة التخزين الحالية --</option></select>
+                </div>
+
+                <button type="submit" class="btn-submit">فحص واقتراح خطة التطوير</button>
+            </form>
+
+            <div id="advisor-warning-container" class="hidden upgrade-warning"></div>
+
+            <div id="upgrade-result-container" class="hidden">
+                <h3 class="result-title">خطة التطوير المقترحة وجدول المقارنة</h3>
+                <div id="upgrade-financial-report" class="financial-report"></div>
+                <div id="upgrade-parts-list" class="parts-list"></div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <p>&copy; 2026 Pers Builds. جميع الحقوق محفوظة.</p>
+    </footer>
+
+    <script src="script.js"></script> 
+    <script src="upgrade-advisor.js"></script>
+</body>
+</html>

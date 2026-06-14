@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pers Builds - قطع الكمبيوتر</title>
+    <link rel="stylesheet" href="Design.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="png" href="icon.png">
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="container header-container">
+            <div class="logo">
+                <h1>Pers <span>Builds</span></h1>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="AboutUs.html">تواصل معنا</a></li>
+                    <li><a href="CompareAndBenchmark.html">مقارنة الأداء</a></li>
+                    <li><a href="Components.html" class="active">قطع الكمبيوتر</a></li>
+                    <li><a href="Upgrade.html">تطوير المواصفات</a></li>
+                    <li><a href="MyBuilds.html">تجميعاتي</a></li>
+                    <li><a href="CusBuilds.html">بناء خاص</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <section class="container" style="padding: 20px 0;">
+            <h2 style="text-align: center;">دليل استعراض قطع الحواسب</h2>
+            
+            <div class="filters">
+                <button onclick="renderComponents('cpus', this)">المعالجات</button>
+                <button onclick="renderComponents('gpus', this)">كروت الشاشة</button>
+                <button onclick="renderComponents('ram', this)">الرامات</button>
+                <button onclick="renderComponents('storage', this)">التخزين</button>
+                <button onclick="renderComponents('motherboards', this)">اللوحات الأم</button>
+            </div>
+
+            <table id="components-table">
+                <thead>
+                    <tr>
+                        <th>اسم القطعة</th>
+                        <th>السعر (د.ل)</th>
+                        <th>نقاط الأداء</th>
+                    </tr>
+                </thead>
+                <tbody id="components-body"></tbody>
+            </table>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <p>&copy; 2026 Pers Builds. جميع الحقوق محفوظة.</p>
+    </footer>
+
+    <script>
+        var allComponents = {};
+        const currentRate = 6.5;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('components.json')
+                .then(res => res.json())
+                .then(data => {
+                    allComponents = data;
+                    renderComponents('cpus', document.querySelector('.filters button'));
+                })
+                .catch(err => console.error("خطأ في تحميل البيانات:", err));
+        });
+
+        function renderComponents(category, btn) {
+            document.querySelectorAll('.filters button').forEach(b => b.classList.remove('active'));
+            if(btn) btn.classList.add('active');
+
+            const body = document.getElementById('components-body');
+            body.innerHTML = ''; 
+            const items = allComponents[category] || [];
+            
+            items.forEach(item => {
+                const localPrice = (item.price * currentRate).toFixed(2);
+                const perf = parseFloat(item.gamingPerf || item.performance || 0);
+                const powerPoints = (perf * 10).toFixed(1); 
+                
+                body.innerHTML += `
+                    <tr>
+                        <td>${item.name}</td>
+                        <td class="price-col">${localPrice} د.ل</td>
+                        <td>
+                            <div class="perf-bar-container">
+                                <div class="perf-bar-fill" style="width: ${Math.min(perf * 60, 100)}%"></div>
+                            </div>
+                            <span style="font-weight: 600;">${powerPoints}</span>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,229 @@
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Cairo', sans-serif;
+}
+
+:root {
+    --bg-color: #0f172a;
+    --card-bg: #1e293b;
+    --primary-color: #3b82f6;
+    --primary-hover: #2563eb;
+    --text-color: #f8fafc;
+    --text-muted: #94a3b8;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+
+.main-header {
+    background-color: #111827;
+    border-bottom: 2px solid #1e293b;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+}
+
+.logo h1 {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.logo h1 span {
+    color: var(--primary-color);
+}
+
+.main-nav ul {
+    display: flex;
+    list-style: none;
+    gap: 25px;
+}
+
+.main-nav ul li a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+
+.main-nav ul li a:hover, 
+.main-nav ul li a.active {
+    color: var(--text-color);
+    background-color: var(--primary-color);
+}
+
+
+.main-content {
+    padding: 60px 0;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.section-title h2 {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.section-title p {
+    color: var(--text-muted);
+}
+
+
+.builder-card {
+    background-color: var(--card-bg);
+    padding: 40px;
+    border-radius: 12px;
+    max-width: 600px;
+    margin: 0 auto;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.form-group input, 
+.form-group select {
+    width: 100%;
+    padding: 12px;
+    background-color: #0f172a;
+    border: 1px solid #334155;
+    border-radius: 6px;
+    color: var(--text-color);
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus, 
+.form-group select:focus {
+    border-color: var(--primary-color);
+}
+
+
+.btn-submit {
+    width: 100%;
+    padding: 14px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-submit:hover {
+    background-color: var(--primary-hover);
+}
+
+
+.hidden {
+    display: none;
+}
+
+.result-container {
+    margin-top: 40px;
+    background-color: var(--card-bg);
+    padding: 30px;
+    border-radius: 12px;
+}
+
+.main-footer {
+    text-align: center;
+    padding: 20px 0;
+    color: var(--text-muted);
+    font-size: 14px;
+    border-top: 1px solid #1e293b;
+    margin-top: 40px;
+}
+
+@media (max-width: 768px) {
+    .header-container {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .main-nav ul {
+        gap: 10px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .builder-card {
+        padding: 20px;
+    }
+}
+/* --- إضافة خاصة بجدول القطع --- */
+
+.filters { display: flex; gap: 10px; justify-content: center; margin-bottom: 25px; flex-wrap: wrap; }
+
+.filters button { 
+    padding: 10px 20px; 
+    cursor: pointer; 
+    border: 1px solid #334155; 
+    border-radius: 5px; 
+    background: #1e293b; 
+    color: white; 
+    transition: 0.3s; 
+}
+
+.filters button.active { background: #3b82f6; border-color: #3b82f6; }
+
+#components-table { 
+    width: 100%; 
+    border-collapse: collapse; 
+    margin-top: 20px; 
+    background: #1e293b; 
+    border-radius: 10px; 
+    overflow: hidden; 
+}
+
+#components-table th { background: #334155; color: white; padding: 15px; text-align: right; }
+#components-table td { padding: 15px; border-bottom: 1px solid #334155; color: #e2e8f0; }
+
+.price-col { color: #38bdf8; font-weight: bold; }
+
+.perf-bar-container { 
+    background: #334155; 
+    width: 100px; 
+    height: 8px; 
+    border-radius: 4px; 
+    display: inline-block; 
+    vertical-align: middle; 
+    margin-left: 10px; 
+}
+
+.perf-bar-fill { height: 100%; border-radius: 4px; background: #3b82f6; }

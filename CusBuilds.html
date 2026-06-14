@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pers Builds - تجميعتك الذكية</title>
+    <link rel="stylesheet" href="Design.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="png" href="icon.png">
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="container header-container">
+            <div class="logo">
+                <h1>Pers <span>Builds</span></h1>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="AboutUs.html">تواصل معنا</a></li>
+                    <li><a href="CompareAndBenchmark.html">مقارنة الأداء</a></li>
+                    <li><a href="Components.html">قطع الكمبيوتر</a></li>
+                    <li><a href="Upgrade.html">تطوير المواصفات</a></li> <li><a href="MyBuilds.html">تجميعاتي</a></li>
+                    <li><a href="CusBuilds.html" class="active">بناء خاص</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <section class="builder-section container">
+            <div class="section-title">
+                <h2>ابدأ ببناء حاسوبك المثالي</h2>
+                <p>أدخل ميزانيتك وطبيعة استخدامك وسنقوم باقتراح أفضل تجميعة قطع ممكنة لك.</p>
+            </div>
+
+            <div class="builder-card">
+                <form id="build-form">
+                    
+                    <div class="form-group">
+                        <label for="currency-select">العملة المعتمدة للحساب:</label>
+                        <select id="currency-select">
+                           <option value="USD">دولار أمريكي ($)</option>
+                           <option value="LYD">دينار ليبي (د.ل)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="budget">الميزانية المتاحة:</label>
+                        <input type="number" id="budget" placeholder="مثال: 1000" required min="100">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="usage">طبيعة استخدامك الأساسية:</label>
+                        <select id="usage" required>
+                             <option value="" disabled selected>اختر نوع الاستخدام...</option>
+                             <option value="gaming">ألعاب فيديو (Gaming)</option>
+                             <option value="rendering">برامج رندر، صناعة محتوى وبث مباشر</option>
+                             <option value="engineering_coding">برامج هندسية، محاكاة وبرمجة</option>
+                             <option value="browsing">تصفح خفيف، دراسة وأعمال مكتبية</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn-submit">اقتراح التجميعة المناسبة</button>
+                </form>
+            </div>
+
+            <div id="result-container" class="result-container hidden">
+                <h3>التجميعة المقترحة لك:</h3>
+                
+                <div class="build-summary" id="build-summary">
+                    </div>
+
+                <div class="parts-list" id="parts-list">
+                    </div>
+            </div>
+
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <p>&copy; 2026 Pers Builds. جميع الحقوق محفوظة.</p>
+    </footer>
+
+     <script src="config.js"></script>
+     <script src="script.js"></script>
+</body>
+</html>

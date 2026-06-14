@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pers Builds - مقارنة الأداء</title>
+    <link rel="stylesheet" href="Design.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="png" href="icon.png">
+    <style>
+        .compare-section {
+            background: #1a1a2e;
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid #22254b;
+            margin-top: 20px;
+        }
+        .selector-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        @media (max-width: 768px) {
+            .selector-group { grid-template-columns: 1fr; }
+        }
+        .select-box {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .select-box label {
+            color: #aaa;
+            font-size: 14px;
+        }
+        .select-box select {
+            padding: 12px;
+            background: #0f0f1e;
+            border: 1px solid #22254b;
+            color: #fff;
+            border-radius: 6px;
+            font-family: 'Cairo', sans-serif;
+            font-size: 15px;
+            outline: none;
+        }
+        .select-box select:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+        .compare-results-box {
+            margin-top: 30px;
+            background: #0f0f1e;
+            padding: 25px;
+            border-radius: 8px;
+            border: 1px solid #22254b;
+        }
+        .grid-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+        .part-column {
+            background: #1a1a2e;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #22254b;
+        }
+        .part-column h3 {
+            margin: 0 0 15px 0;
+            color: #e94560;
+            font-size: 18px;
+            border-bottom: 1px dashed #22254b;
+            padding-bottom: 10px;
+        }
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 15px;
+            color: #e0e0e0;
+        }
+        .info-row span { color: #aaa; }
+        .perf-summary-box {
+            background: #161630;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px dashed #22254b;
+            text-align: center;
+        }
+        .perf-heading {
+            font-size: 16px;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+        .perf-percent {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        .percent-pos {
+            color: #00ff66;
+            text-shadow: 0 0 10px rgba(0, 255, 102, 0.2);
+        }
+        .percent-neg {
+            color: #ff3333;
+            text-shadow: 0 0 10px rgba(255, 51, 51, 0.2);
+        }
+        .progress-container {
+            background: #0f0f1e;
+            height: 12px;
+            border-radius: 6px;
+            overflow: hidden;
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            border: 1px solid #22254b;
+        }
+        .progress-bar {
+            height: 100%;
+            transition: width 0.4s ease;
+        }
+        .bg-pos { background: #00ff66; }
+        .bg-neg { background: #ff3333; }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="container header-container">
+            <div class="logo">
+                <h1>Pers <span>Builds</span></h1>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="AboutUs.html">تواصل معنا</a></li>
+                    <li><a href="CompareAndBenchmark.html" class="active">مقارنة الأداء</a></li>
+                    <li><a href="Components.html">قطع الكمبيوتر</a></li>
+                    <li><a href="Upgrade.html">تطوير المواصفات</a></li>
+                    <li><a href="MyBuilds.html">تجميعاتي</a></li>
+                    <li><a href="CusBuilds.html">بناء خاص</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <section class="container" style="padding: 40px 0;">
+            <div style="text-align: center; margin-bottom: 30px;">
+                <h2>مقارنة القطع واختبارات الأداء</h2>
+                <p style="color: #aaa; max-width: 600px; margin: 10px auto 0 auto;">اختر نوع القطعة أولاً، ثم حدد القطعتين المطلوبة لعرض الفروقات المباشرة ونسبة الأداء والمقارنة المالية المستندة لقاعدة البيانات.</p>
+            </div>
+
+            <div class="compare-section">
+                <div class="selector-group">
+                    <div class="select-box">
+                        <label for="compare-type">نوع المكون المراد مقارنته</label>
+                        <select id="compare-type">
+                            <option value="">-- اختر النوع --</option>
+                            <option value="cpu">المعالجات (CPU)</option>
+                            <option value="gpu">كروت الشاشة (GPU)</option>
+                        </select>
+                    </div>
+                    <div class="select-box">
+                        <label for="part-one">القطعة الأولى (الأساسية)</label>
+                        <select id="part-one" disabled>
+                            <option value="">-- اختر القطعة الأولى --</option>
+                        </select>
+                    </div>
+                    <div class="select-box">
+                        <label for="part-two">القطعة الثانية (المستهدفة)</label>
+                        <select id="part-two" disabled>
+                            <option value="">-- اختر القطعة الثانية --</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="compare-results-container" class="compare-results-box hidden">
+                    <div class="grid-comparison">
+                        <div class="part-column">
+                            <h3 id="render-name-one">القطعة الأولى</h3>
+                            <div class="info-row"><span>السعر العالمي:</span><strong id="render-price-one">0 $</strong></div>
+                            <div class="info-row"><span id="render-label-one">مؤشر الأداء:</span><strong id="render-perf-one">0</strong></div>
+                            <div class="info-row"><span id="spec-label-one">استهلاك الطاقة / السوكيت:</span><strong id="render-spec-one">-</strong></div>
+                        </div>
+                        <div class="part-column">
+                            <h3 id="render-name-two">القطعة الثانية</h3>
+                            <div class="info-row"><span>السعر العالمي:</span><strong id="render-price-two">0 $</strong></div>
+                            <div class="info-row"><span id="render-label-two">مؤشر الأداء:</span><strong id="render-perf-two">0</strong></div>
+                            <div class="info-row"><span id="spec-label-two">استهلاك الطاقة / السوكيت:</span><strong id="render-spec-two">-</strong></div>
+                        </div>
+                    </div>
+
+                    <div class="perf-summary-box">
+                        <div class="perf-heading">فارق أداء القطعة الثانية مقارنة بالقطعة الأولى:</div>
+                        <div id="render-final-ratio" class="perf-percent">0%</div>
+                        <div class="progress-container">
+                            <div id="render-progress-bar" class="progress-bar" style="width: 0%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <p>&copy; 2026 Pers Builds. جميع الحقوق محفوظة.</p>
+    </footer>
+
+<script>
+        // إعداد متغيرات النظام وسعر الصرف
+        var currentRate = window.EXCHANGE_RATE || 6.5;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // سحب ملف البيانات مباشرة باستخدام الاسم الصحيح لضمان استقلالية الصفحة
+            fetch('components.json')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('لم يتم العثور على ملف components.json');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    window.allComponents = data;
+                    console.log("تم تحميل بيانات القطع بنجاح.");
+                    initComparePage();
+                })
+                .catch(error => {
+                    console.error("خطأ في تحميل ملف البيانات:", error);
+                    // محاولة احتياطية في حال تم بث البيانات عبر حدث آخر
+                    if (window.allComponents) {
+                        initComparePage();
+                    }
+                });
+        });
+
+        function initComparePage() {
+            const typeSelect = document.getElementById('compare-type');
+            const partOneSelect = document.getElementById('part-one');
+            const partTwoSelect = document.getElementById('part-two');
+
+            typeSelect.onchange = handleTypeChange;
+            partOneSelect.onchange = executeComparison;
+            partTwoSelect.onchange = executeComparison;
+        }
+
+        function handleTypeChange() {
+            const typeSelect = document.getElementById('compare-type');
+            const partOneSelect = document.getElementById('part-one');
+            const partTwoSelect = document.getElementById('part-two');
+            const selectedType = typeSelect.value;
+
+            partOneSelect.innerHTML = '<option value="">-- اختر القطعة الأولى --</option>';
+            partTwoSelect.innerHTML = '<option value="">-- اختر القطعة الثانية --</option>';
+            document.getElementById('compare-results-container').classList.add('hidden');
+
+            if (!selectedType || !window.allComponents) {
+                partOneSelect.disabled = true;
+                partTwoSelect.disabled = true;
+                return;
+            }
+
+            partOneSelect.disabled = false;
+            partTwoSelect.disabled = false;
+
+            let items = [];
+            if (selectedType === 'cpu' && window.allComponents.cpus) {
+                items = window.allComponents.cpus;
+            } else if (selectedType === 'gpu' && window.allComponents.gpus) {
+                items = window.allComponents.gpus;
+            }
+
+            items.forEach(item => {
+                let optionText = `${item.name} (${item.price} $)`;
+                partOneSelect.innerHTML += `<option value="${item.name}">${optionText}</option>`;
+                partTwoSelect.innerHTML += `<option value="${item.name}">${optionText}</option>`;
+            });
+        }
+
+        function executeComparison() {
+            const type = document.getElementById('compare-type').value;
+            const name1 = document.getElementById('part-one').value;
+            const name2 = document.getElementById('part-two').value;
+            const resultsContainer = document.getElementById('compare-results-container');
+
+            if (!type || !name1 || !name2) {
+                resultsContainer.classList.add('hidden');
+                return;
+            }
+
+            let part1 = null;
+            let part2 = null;
+
+            if (type === 'cpu' && window.allComponents.cpus) {
+                part1 = window.allComponents.cpus.find(c => c.name === name1);
+                part2 = window.allComponents.cpus.find(c => c.name === name2);
+            } else if (type === 'gpu' && window.allComponents.gpus) {
+                part1 = window.allComponents.gpus.find(g => g.name === name1);
+                part2 = window.allComponents.gpus.find(g => g.name === name2);
+            }
+
+            if (!part1 || !part2) return;
+
+            let perf1 = parseFloat(part1.gamingPerf || part1.performance || 0);
+            let perf2 = parseFloat(part2.gamingPerf || part2.performance || 0);
+
+            document.getElementById('render-name-one').innerText = part1.name;
+            document.getElementById('render-price-one').innerText = `${part1.price} $`;
+            document.getElementById('render-label-one').innerText = type === 'cpu' ? 'قوة الأداء المعالجي:' : 'قوة الأداء الرسومي:';
+            document.getElementById('render-perf-one').innerText = perf1;
+            document.getElementById('spec-label-one').innerText = type === 'cpu' ? 'المقبس (Socket):' : 'استهلاك الطاقة (TDP):';
+            document.getElementById('render-spec-one').innerText = type === 'cpu' ? (part1.socket || 'غير محدد') : (part1.tdp || 'غير محدد');
+
+            document.getElementById('render-name-two').innerText = part2.name;
+            document.getElementById('render-price-two').innerText = `${part2.price} $`;
+            document.getElementById('render-label-two').innerText = type === 'cpu' ? 'قوة الأداء المعالجي:' : 'قوة الأداء الرسومي:';
+            document.getElementById('render-perf-two').innerText = perf2;
+            document.getElementById('spec-label-two').innerText = type === 'cpu' ? 'المقبس (Socket):' : 'استهلاك الطاقة (TDP):';
+            document.getElementById('render-spec-two').innerText = type === 'cpu' ? (part2.socket || 'غير محدد') : (part2.tdp || 'غير محدد');
+
+            let diffPercent = 0;
+            if (perf1 > 0) {
+                diffPercent = ((perf2 - perf1) / perf1) * 100;
+            }
+
+            const finalRatioElement = document.getElementById('render-final-ratio');
+            const progressBar = document.getElementById('render-progress-bar');
+
+            if (diffPercent >= 0) {
+                finalRatioElement.className = 'perf-percent percent-pos';
+                finalRatioElement.innerText = `+${diffPercent.toFixed(0)}%`;
+                progressBar.className = 'progress-bar bg-pos';
+                let fillWidth = Math.min(100, 50 + (diffPercent / 2));
+                progressBar.style.width = `${fillWidth}%`;
+            } else {
+                finalRatioElement.className = 'perf-percent percent-neg';
+                finalRatioElement.innerText = `${diffPercent.toFixed(0)}%`;
+                progressBar.className = 'progress-bar bg-neg';
+                let fillWidth = Math.max(5, 50 + (diffPercent / 2));
+                progressBar.style.width = `${fillWidth}%`;
+            }
+
+            resultsContainer.classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
